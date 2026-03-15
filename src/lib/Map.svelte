@@ -1,9 +1,19 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
+<<<<<<< HEAD
 <div id="map"></div>
+=======
+<div id="map">
+  <div class="nav-header">
+    <input class="search-box" type="text" placeholder="enter an address..." style="z-index: 1000; position: relative;" id="search">
+    <Filter />
+  </div>
+</div>
+>>>>>>> 4b937e5 (main checkboxes)
 
 <script>
+	import Filter from "$lib/components/Filter.svelte"
   import { onMount } from 'svelte';
   onMount(async () => {
     const L = await import('leaflet')
@@ -53,5 +63,21 @@
 </script>
 
 <style>
+<<<<<<< HEAD
   #map { height: 100vh; }
+=======
+  #map {height: 100vh; }
+  .search-box{
+    width: 20%;
+    min-width: 200px;
+    margin-top: 1em;
+    margin-left: 5em;
+    height: 20px;
+  }
+  .nav-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+>>>>>>> 4b937e5 (main checkboxes)
 </style>
