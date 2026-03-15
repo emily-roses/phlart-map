@@ -6,6 +6,6 @@
 	<title>Phlart Map</title>
 </head>
 <body>
-	
+  
 </body>
 </html>
