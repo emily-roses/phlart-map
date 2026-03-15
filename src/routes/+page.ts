@@ -1,4 +1,4 @@
-import { getAllArt } from '$lib/api';
+import { getAllArt } from '$lib/utils/api';
 import { addrToCordinates } from '$lib/utils/geocode';
 import type { PageLoad } from './$types';
 

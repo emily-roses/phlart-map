@@ -1,8 +1,8 @@
-<script>
-  import { onMount } from 'svelte';
-  import { getAllArt } from '$lib/api'
-  import AddressInput from './components/AddressInput.svelte';
-  import Filter from '$lib/components/Filter.svelte';
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { getAllArt, type Art } from '$lib/utils/api';
+	import AddressInput from './components/AddressInput.svelte';
+	import Filter from '$lib/components/Filter.svelte';
 
   function artistLi(artistArray) {
     let listContainer = document.createElement('li');
@@ -42,6 +42,7 @@
     return listContainer;
   }
 
+  
   function pictureLi(pictureArray) {
     const pictureUrl = pictureArray[0]['large']['url'];
     let listContainer = document.createElement('li');
@@ -53,8 +54,8 @@
     return listContainer;
   }
 
-  onMount(async () => {
-    const L = await import('leaflet')
+	onMount(async () => {
+		const L = await import('leaflet');
 
     // indy hall location
     const iconSize = [19, 30];
@@ -73,6 +74,7 @@
 	popupAnchor: popupAnchor,
     });
     var map = L.map('map').setView([39.962125, -75.140675], 15);
+	map.zoomControl.setPosition('bottomleft');
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -122,5 +124,9 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+	}
+	:global(ul) {
+		list-style: none;
+		padding: 0;
 	}
 </style>

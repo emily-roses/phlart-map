@@ -43,8 +43,15 @@
 		padding: 0.5em 0.25em;
 		align-self: center;
 		margin-right: 1em;
-		background: rgba(0, 0, 0, 0.2);
+		background: rgba(0, 0, 0, 0.5);
+		color: white;
 		z-index: 1000;
 		width: fit-content;
+	}
+
+	@media (width <= 600px) {
+		#main-filter-wrapper {
+			flex-direction: column;
+		}
 	}
 </style>
