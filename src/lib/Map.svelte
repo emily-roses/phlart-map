@@ -63,9 +63,6 @@
 </script>
 
 <style>
-<<<<<<< HEAD
-  #map { height: 100vh; }
-=======
   #map {height: 100vh; }
   .search-box{
     width: 20%;
@@ -79,5 +76,4 @@
     flex-direction: row;
     justify-content: space-between;
   }
->>>>>>> 4b937e5 (main checkboxes)
 </style>
