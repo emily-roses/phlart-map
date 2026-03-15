@@ -29,7 +29,7 @@
 	.bar {
 		z-index: 1000;
 		position: relative;
-		left: 50px;
+		left: 12px;
 		top: 12px;
 		display: flex;
 		flex-direction: row;
