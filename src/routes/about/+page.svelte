@@ -1,4 +1,6 @@
-
+<script>
+    import { filterTesting } from '../../lib/filter.ts'
+</script>
 <h1>About</h1>
 <p>PhlartMap provides a map display of former and current Public Art displays around Philadelphia. Our interface integrates an API of a Philadelphia Public Art index curated and developed by <a target= "_blank" href="https://www.philart.net/chrispurdom/">Christopher William Purdom</a> on <a target="_blank" href="https://philart.net">philart.net</a></p>
 <h2>How do I use this tool?</h2>
