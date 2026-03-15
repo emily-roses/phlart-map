@@ -1,6 +1,6 @@
 
 export async function addrToCordinates(address: string) {
-  const apiKey = "69b6ee845541f614921655tmjd5d968"
+  const apiKey = ""
   const url = `https://geocode.maps.co/search?q=${address}&api_key=${apiKey}`
 
   try {
