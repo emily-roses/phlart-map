@@ -1,10 +1,21 @@
 <script lang="ts">
 	import { addrToCordinates } from '$lib/utils/geocode';
-
 	let address = $state('');
 
-	const handleAddrSearch = () => {
-		addrToCordinates(address);
+	const handleAddrSearch = async () => {
+		const cordinates = await addrToCordinates(address);
+		if (!cordinates) {
+			console.error('error fetching cordinates');
+		}
+
+		const latAndLon = {
+			lat: cordinates[0].lat,
+			lon: cordinates[0].lon
+		};
+
+		console.log('cordinates', latAndLon);
+
+		//TODO: integrate to map
 	};
 </script>
 
