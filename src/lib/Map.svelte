@@ -59,7 +59,7 @@
 			popupAnchor: popupAnchor
 		});
 		var map = L.map('map').setView([39.962125, -75.140675], 15);
-		map.zoomControl.setPosition("bottomleft");
+		map.zoomControl.setPosition('bottomleft');
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -106,5 +106,9 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+	}
+	:global(ul) {
+		list-style: none;
+		padding: 0;
 	}
 </style>
