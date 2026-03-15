@@ -1,3 +1,5 @@
+import art from '$lib/art.json';
+
 /*
 topnav: returned by philart.net/api.json. It has no body, just a head and links. See the tester for format and current values
 listnav: returned by all philart.net/api/x.json (except for geo) and lists all of the valid children of the current request in the body. See the tester for format and current values
@@ -14,6 +16,7 @@ size: returned by philart.net/api/sizes/x.json, where x is "big" or "small". The
 geo: returned by philart.net/api/geo.json. The body contains an array of art descriptions as described in detail further below.
 */
 
+import { jsonrepair } from 'jsonrepair';
 
 export interface Head {
 	title: string;
@@ -80,11 +83,15 @@ export type Art = {
 	exhibits?: ({ name: string } & HATEOAS)[]; // an optional array of objects with two members: name, and HATEOAS links.
 } & HATEOAS;
 
-export type ArtResponse = {body: Art[]} & ApiBase
+export type ArtResponse = { body: Art[] } & ApiBase;
 
 export const getData = async () => {
-  const request = await fetch(
-    'http://www.philart.net/api/geo.json?ll=39.952400,-75.165700&bb=39.951400,-75.166700,39.953400,-75.164700'
-  );
-  return request.json();
+	const request = await fetch(
+		'http://www.philart.net/api/geo.json?ll=39.952400,-75.165700&bb=39.951400,-75.166700,39.953400,-75.164700'
+	);
+	return request.json();
+};
+
+export const getAllArt = async () => {
+	return art.body.art;
 };
