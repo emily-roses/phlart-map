@@ -1,13 +1,12 @@
 <script>
-	import Map from "$lib/Map.svelte"
+	import Map from '$lib/Map.svelte';
 </script>
 
 <div class="navbar">
-	<img alt="phlart logo" src="phlart.png">
-	<br/>
-	<br/>
-	<br/>
+	<img alt="phlart logo" src="phlart.png" />
 </div>
+
+<Map />
 
 <style>
 	.navbar {
@@ -18,7 +17,6 @@
 		left: 8px;
 		top: 8px;
 		gap: 4px;
-		padding: 30px;
 		border-radius: 15px;
 	}
 	a {
@@ -26,5 +24,3 @@
 		color: #000;
 	}
 </style>
-
-<Map />
