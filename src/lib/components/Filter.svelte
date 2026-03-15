@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { filter } from "$lib/filter";
+	import { filter } from "../utils/filter.ts";
 
 	let { value = $bindable() } = $props();
 
