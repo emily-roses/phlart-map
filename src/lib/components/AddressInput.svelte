@@ -29,8 +29,8 @@
 	.bar {
 		z-index: 1000;
 		position: relative;
-		left: 12px;
-		top: 12px;
+		left: 45px;
+		top: 100px;
 		display: flex;
 		flex-direction: row;
 		gap: 4px;
