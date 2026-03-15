@@ -52,7 +52,7 @@ interface Location {
 	description?: string;
 }
 
-type ExternalLinks = [];
+type ExternalLinks = { url: string; label: string }[];
 
 export type Art = {
 	title: {
@@ -90,6 +90,6 @@ export const getData = async () => {
 	return request.json();
 };
 
-export const getAllArt = async () => {
-	return art.body.art;
+export const getAllArt = () => {
+	return art.body.art as Art[];
 };
