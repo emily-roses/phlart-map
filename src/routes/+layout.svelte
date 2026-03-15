@@ -5,6 +5,8 @@
 </script>
 
 <svelte:head>
+	<title>PhlArt Near You</title>
+	<meta name="description" content="Find public art in your Philly neighborhood!" />
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
