@@ -1,6 +1,8 @@
+import { env } from "$env/dynamic/public"
 
 export async function addrToCordinates(address: string) {
-  const apiKey = ""
+  const apiKey = `${env.PUBLIC_GEOAPIKEY}`
+
   const url = `https://geocode.maps.co/search?q=${address}&api_key=${apiKey}`
 
   try {
