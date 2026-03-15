@@ -17,14 +17,14 @@
     const filteredSearch = (filterName: string, filterChecked: boolean) => {
         filterConfiguration[filterName] = filterChecked;
         const filterArray = fetchCheckedFilters(filterConfiguration);
-        if (filterArray.length !== 0){
-            filterArray
-        }
+        // if (filterArray.length !== 0){
+        //     filterArray
+        // }
     };
 </script>
 <div id="main-filter-wrapper">
     {#each mainFilterTypes as mainFilter}
-    <input id={mainFilter} onclick={filteredSearch(mainFilter, this.checked)} type="checkbox">
+    <input id={mainFilter} onclick={() => {filteredSearch(mainFilter, this.checked)}} type="checkbox">
     <label for={mainFilter}>{mainFilter}</label>
     {/each}
 </div>
