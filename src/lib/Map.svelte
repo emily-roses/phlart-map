@@ -5,50 +5,83 @@
 
 <script>
   import { onMount } from 'svelte';
+  import { getAllArt } from '$lib/api'
+
+  function artistLi(artistArray) {
+    let listContainer = document.createElement('li');
+    if (artistArray.length == 1) {
+      let strong = document.createElement('strong');
+      let strongContent = document.createTextNode('Artist');
+      strong.appendChild(strongContent);
+      let text = document.createTextNode(': ' + artistArray[0]['name']);
+      listContainer.appendChild(strong);
+      listContainer.appendChild(text);
+      return listContainer;
+    }
+    let strong = document.createElement('strong');
+    let strongContent = document.createTextNode('Artists:');
+    strong.append(strongContent);
+    listContainer.append(strong);
+    let list = document.createElement('ul');
+    for (const artist of artistArray) {
+      let listitem = document.createElement('li');
+      let text = document.createTextNode(artist.name);
+      listitem.appendChild(text);
+      list.appendChild(listitem);
+    }
+    listContainer.appendChild(list);
+    return listContainer;
+  }
+
+  function pictureLi(pictureArray) {
+    const pictureUrl = pictureArray[0]['small']['url'];
+    let listContainer = document.createElement('li');
+    let img = document.createElement('img');
+    img.setAttribute('src', pictureUrl);
+    listContainer.appendChild(img);
+    return listContainer;
+  }
+
   onMount(async () => {
     const L = await import('leaflet')
 
-    const artJson = await fetch('https://www.philart.net/api/landmarks.json', {
-      method: 'GET'
-    })
-    console.log(artJson);
     // indy hall location
-    var architecture = L.icon({
+    const iconSize = [19, 30];
+    const iconAnchor = [(iconSize[0] / 2), iconSize[1]];
+    const popupAnchor = [0, (iconSize[1] * -1)];
+    const architecture = L.icon({
 	iconUrl: 'icons/architecture.png',
-	iconSize: [38, 60],
-	iconAnchor: [17, 60],
-	popupAnchor: [0,-60],
+	iconSize: iconSize,
+	iconAnchor: iconAnchor,
+	popupAnchor: popupAnchor,
     });
-    var landmark = L.icon({
+    const landmark = L.icon({
 	iconUrl: 'icons/landmark.png',
-	iconSize: [38, 60],
-	iconAnchor: [17, 60],
-	popupAnchor: [0,-60],
+	iconSize: iconSize,
+	iconAnchor: iconAnchor,
+	popupAnchor: popupAnchor,
     });
     var map = L.map('map').setView([39.962125, -75.140675], 15);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    let marker = L.marker([39.96164917971281, -75.14149386089039], {icon: landmark}); 
-    let list = document.createElement('ul');
-    let contentJson = {
-      image: '/image.jpg',
-      name: 'Guy Person',
-      address: '21 Jump Street',
-    }
-    let listitem, listitemTextContent;
-    for (const key in contentJson) {
-      if (contentJson.hasOwnProperty(key)) {
-	listitem = document.createElement('li');
-	listitemTextContent = document.createTextNode(contentJson[key]);
-	listitem.appendChild(listitemTextContent);
-	list.appendChild(listitem);
+    const arts = await getAllArt();
+    for (const art of arts) {
+      let marker = L.marker([art.location.latitude, art.location.longitude], {icon: landmark}); 
+      let list = document.createElement('ul');
+      if (art.pictures && art.pictures.length) {
+	let pictureHtml = pictureLi(art.pictures);
+	list.append(pictureHtml);
       }
+      if (art.artists){
+	let artistHtml = artistLi(art.artists);
+	list.append(artistHtml)
+      }
+      let popup = L.popup().setContent(list);
+      marker.bindPopup(popup).openPopup();
+      marker.addTo(map);
     }
-    let popup = L.popup().setContent(list);
-    marker.bindPopup(popup).openPopup();
-    marker.addTo(map);
   });
 </script>
 
