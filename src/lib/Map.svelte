@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { getAllArt } from '$lib/utils/api';
+	import { getAllArt, type Art } from '$lib/utils/api';
 	import AddressInput from './components/AddressInput.svelte';
 	import Filter from '$lib/components/Filter.svelte';
 
-	function artistLi(artistArray) {
+	function artistLi(artistArray: Art['artists'] = []) {
 		let listContainer = document.createElement('li');
 		if (artistArray.length == 1) {
 			let strong = document.createElement('strong');
@@ -30,7 +30,7 @@
 		return listContainer;
 	}
 
-	function pictureLi(pictureArray) {
+	function pictureLi(pictureArray: Art['pictures']) {
 		const pictureUrl = pictureArray[0]['small']['url'];
 		let listContainer = document.createElement('li');
 		let img = document.createElement('img');
@@ -43,9 +43,9 @@
 		const L = await import('leaflet');
 
 		// indy hall location
-		const iconSize = [19, 30];
-		const iconAnchor = [iconSize[0] / 2, iconSize[1]];
-		const popupAnchor = [0, iconSize[1] * -1];
+		const iconSize: [number, number] = [19, 30];
+		const iconAnchor: [number, number] = [iconSize[0] / 2, iconSize[1]];
+		const popupAnchor: [number, number] = [0, iconSize[1] * -1];
 		const architecture = L.icon({
 			iconUrl: 'icons/architecture.png',
 			iconSize: iconSize,
@@ -63,9 +63,11 @@
 			maxZoom: 19,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		}).addTo(map);
-		const arts = await getAllArt();
+		const arts = getAllArt();
 		for (const art of arts) {
-			let marker = L.marker([art.location.latitude, art.location.longitude], { icon: landmark });
+			let marker = L.marker([Number(art.location.latitude), Number(art.location.longitude)], {
+				icon: landmark
+			});
 			let list = document.createElement('ul');
 			if (art.pictures && art.pictures.length) {
 				let pictureHtml = pictureLi(art.pictures);
