@@ -30,11 +30,25 @@
     return listContainer;
   }
 
+
+  function titleLi(title) {
+    let listContainer = document.createElement('li');
+    let strong = document.createElement('strong');
+    let strongContent = document.createTextNode('Title');
+    strong.appendChild(strongContent);
+    let text = document.createTextNode(': ' + title);
+    listContainer.appendChild(strong);
+    listContainer.appendChild(text);
+    return listContainer;
+  }
+
   function pictureLi(pictureArray) {
-    const pictureUrl = pictureArray[0]['small']['url'];
+    const pictureUrl = pictureArray[0]['large']['url'];
     let listContainer = document.createElement('li');
     let img = document.createElement('img');
     img.setAttribute('src', pictureUrl);
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('style', 'max-width: 100%;')
     listContainer.appendChild(img);
     return listContainer;
   }
@@ -67,9 +81,14 @@
     for (const art of arts) {
       let marker = L.marker([art.location.latitude, art.location.longitude], {icon: landmark}); 
       let list = document.createElement('ul');
+      list.setAttribute('style', 'padding: 0;list-style: none;')
       if (art.pictures && art.pictures.length) {
 	let pictureHtml = pictureLi(art.pictures);
 	list.append(pictureHtml);
+      }
+      if (art.title && art.title.display) {
+	let titleHtml = titleLi(art.title.display);
+	list.append(titleHtml);
       }
       if (art.artists){
 	let artistHtml = artistLi(art.artists);
