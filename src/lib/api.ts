@@ -16,6 +16,7 @@ size: returned by philart.net/api/sizes/x.json, where x is "big" or "small". The
 geo: returned by philart.net/api/geo.json. The body contains an array of art descriptions as described in detail further below.
 */
 
+
 export interface Head {
 	title: string;
 	type:
@@ -52,7 +53,7 @@ interface Location {
 	description?: string;
 }
 
-type ExternalLinks = [];
+type ExternalLinks = { url: string; label: string }[];
 
 export type Art = {
 	title: {
@@ -90,6 +91,6 @@ export const getData = async () => {
 	return request.json();
 };
 
-export const getAllArt = async () => {
-	return art.body.art;
+export const getAllArt = () => {
+	return art.body.art as Art[];
 };

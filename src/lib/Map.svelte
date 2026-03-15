@@ -1,11 +1,8 @@
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-<div id="map"></div>
-
 <script>
   import { onMount } from 'svelte';
   import { getAllArt } from '$lib/api'
+  import AddressInput from './components/AddressInput.svelte';
+  import Filter from '$lib/components/Filter.svelte';
 
   function artistLi(artistArray) {
     let listContainer = document.createElement('li');
@@ -85,6 +82,26 @@
   });
 </script>
 
+<link
+	rel="stylesheet"
+	href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+	crossorigin=""
+/>
+<div id="map">
+	<div class="nav-header">
+		<AddressInput></AddressInput>
+		<Filter />
+	</div>
+</div>
+
 <style>
-  #map { height: 100vh; }
+	#map {
+		height: 100vh;
+	}
+	.nav-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
 </style>
