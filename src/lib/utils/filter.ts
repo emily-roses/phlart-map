@@ -6,7 +6,7 @@ const artDataResponse: ArtResponse = await getData();
 const artDataBody = artDataResponse['body'];
 export const filter = (filterAttributes: string[], artDataBody: Art[] ) => {
     return artDataBody['art'].filter((art: Art) => {
-        return (filterAttribute in art);
+        return filterAttributes.every(attribute => attribute in art);
     });
 };
 

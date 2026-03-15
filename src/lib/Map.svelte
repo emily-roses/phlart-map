@@ -83,6 +83,53 @@
 			marker.addTo(map);
 		}
 	});
+  const arts = $state(getAllArt());
+  const renderArtData = (arts, L, map) => {
+      for (const art of arts) {
+        let marker = L.marker([art.location.latitude, art.location.longitude], {icon: landmark}); 
+        let list = document.createElement('ul');
+        if (art.pictures && art.pictures.length) {
+    let pictureHtml = pictureLi(art.pictures);
+    list.append(pictureHtml);
+        }
+        if (art.artists){
+    let artistHtml = artistLi(art.artists);
+    list.append(artistHtml)
+        }
+        let popup = L.popup().setContent(list);
+        marker.bindPopup(popup).openPopup();
+        marker.addTo(map);
+      }
+    }
+  $effect(() => {renderArtData(arts, L, map)})
+
+  onMount(async () => {
+    const L = await import('leaflet')
+
+    // indy hall location
+    const iconSize = [19, 30];
+    const iconAnchor = [(iconSize[0] / 2), iconSize[1]];
+    const popupAnchor = [0, (iconSize[1] * -1)];
+    const architecture = L.icon({
+	iconUrl: 'icons/architecture.png',
+	iconSize: iconSize,
+	iconAnchor: iconAnchor,
+	popupAnchor: popupAnchor,
+    });
+    const landmark = L.icon({
+	iconUrl: 'icons/landmark.png',
+	iconSize: iconSize,
+	iconAnchor: iconAnchor,
+	popupAnchor: popupAnchor,
+    });
+    var map = L.map('map').setView([39.962125, -75.140675], 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    renderArtData(arts, L, map);
+  });
 </script>
 
 <link
@@ -94,7 +141,7 @@
 <div id="map">
 	<div class="nav-header">
 		<AddressInput></AddressInput>
-		<Filter />
+		<Filter bind:value= {arts}/>
 	</div>
 </div>
 

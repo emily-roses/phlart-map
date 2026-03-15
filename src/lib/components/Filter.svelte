@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { filter } from "$lib/filter";
+
+	let { value = $bindable() } = $props();
+
 	const mainFilterTypes = ['landmark', 'architecture', 'exhibits'];
 	const filterConfiguration: { [key: string]: boolean } = {
 		landmark: false,
@@ -17,9 +21,9 @@
 	const filteredSearch = (filterName: string, filterChecked: boolean) => {
 		filterConfiguration[filterName] = filterChecked;
 		const filterArray = fetchCheckedFilters(filterConfiguration);
-		// if (filterArray.length !== 0){
-		//     filterArray
-		// }
+		if (filterArray.length !== 0){
+		    value = filter(filterArray, value);
+		}
 	};
 </script>
 
@@ -43,8 +47,8 @@
 		padding: 0.5em 0.25em;
 		align-self: center;
 		margin-right: 1em;
-		background: rgba(0, 0, 0, 0.5);
-		color: white;
+		margin-top: 1em;
+		background: rgba(0, 0, 0, 0.2);
 		z-index: 1000;
 		width: fit-content;
 	}
