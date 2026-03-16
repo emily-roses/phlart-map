@@ -1,4 +1,4 @@
-import art from '$lib/art.json';
+import art from '$lib/assets/art.json';
 
 /*
 topnav: returned by philart.net/api.json. It has no body, just a head and links. See the tester for format and current values
@@ -15,7 +15,6 @@ architecture: returned by philart.net/api/architecture/x,json. All pieces of art
 size: returned by philart.net/api/sizes/x.json, where x is "big" or "small". The body of this response includes an array of descriptions of art that have been arbitrarily classified into one of those two categories by the webmaster.
 geo: returned by philart.net/api/geo.json. The body contains an array of art descriptions as described in detail further below.
 */
-
 
 export interface Head {
 	title: string;

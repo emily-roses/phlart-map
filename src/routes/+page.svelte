@@ -1,9 +1,9 @@
 <script>
-	import Map from '$lib/Map.svelte';
+	import Map from '$lib/components/Map.svelte';
 </script>
 
 <div class="navbar">
-	<img alt="phlart logo" src="phlart.png" />
+	<a href="christopher"><img alt="phlart logo" src="phlart.png" /></a>
 </div>
 
 <Map />
@@ -18,9 +18,5 @@
 		top: 8px;
 		gap: 4px;
 		border-radius: 15px;
-	}
-	a {
-		padding: 10px;
-		color: #000;
 	}
 </style>
