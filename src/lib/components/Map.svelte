@@ -72,20 +72,10 @@
 	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
 	crossorigin=""
 />
-<div id="map">
-	<div class="nav-header">
-		<AddressInput></AddressInput>
-		<Filter />
-	</div>
-</div>
+<div id="map"></div>
 
 <style>
 	#map {
 		height: 100vh;
-	}
-	.nav-header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
 	}
 </style>

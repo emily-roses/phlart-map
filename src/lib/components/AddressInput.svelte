@@ -27,24 +27,20 @@
 
 <style>
 	.bar {
-		z-index: 1000;
-		position: relative;
-		left: 8px;
-		top: 70px;
 		display: flex;
 		flex-direction: row;
+		height: 32px;
 		gap: 4px;
 
 		input {
-			width: 20%;
-			min-width: 200px;
-			height: 20px;
+			height: 100%;
+			flex: 1;
 		}
 		button {
 			border: 1px solid black;
 			background-color: white;
-			width: 24px;
-			height: 24px;
+			aspect-ratio: 1/1;
+			height: 100%;
 		}
 	}
 </style>

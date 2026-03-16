@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { filter } from "../utils/filter.ts";
+	import { filter } from '../utils/filter.ts';
 
 	let { value = $bindable() } = $props();
 
@@ -21,8 +21,8 @@
 	const filteredSearch = (filterName: string, filterChecked: boolean) => {
 		filterConfiguration[filterName] = filterChecked;
 		const filterArray = fetchCheckedFilters(filterConfiguration);
-		if (filterArray.length !== 0){
-		    value = filter(filterArray, value);
+		if (filterArray.length !== 0) {
+			value = filter(filterArray, value);
 		}
 	};
 </script>
@@ -43,19 +43,10 @@
 <style>
 	#main-filter-wrapper {
 		display: flex;
+		flex-wrap: wrap;
 		flex-direction: row;
 		padding: 0.5em 0.25em;
-		align-self: center;
-		margin-right: 1em;
-		margin-top: 1em;
-		background: rgba(0, 0, 0, 0.2);
-		z-index: 1000;
-		width: fit-content;
-	}
-
-	@media (width <= 600px) {
-		#main-filter-wrapper {
-			flex-direction: column;
-		}
+		color: black;
+		background-color: rgb(255, 255, 255, 80%);
 	}
 </style>
