@@ -1,30 +1,32 @@
 <script lang="ts">
-	import { mount, onMount, unmount, type Component } from 'svelte';
+	import { mount, onMount, unmount } from 'svelte';
 	import { getAllArt, type Art } from '$lib/utils/api';
-	import AddressInput from './AddressInput.svelte';
-	import Filter from '$lib/components/Filter.svelte';
 	import ArtPopup from './ArtPopup.svelte';
+
+	const arts = $state(getAllArt());
 
 	onMount(async () => {
 		const L = await import('leaflet');
 
-		function bindPopup(marker: L.Marker, createFn: (m: Element) => void) {
-			let popupComponent: unknown;
+		function bindPopup(marker: L.Marker, art: Art) {
+			let popupComponent: Record<string, any>;
 			marker.bindPopup(() => {
 				let container = L.DomUtil.create('div');
-				popupComponent = createFn(container);
+				popupComponent = mount(ArtPopup, {
+					target: container,
+					props: {
+						art
+					}
+				});
 				return container;
 			});
 
-			marker.on('popupclose', () => {
+			marker.on('popupclose', async () => {
 				if (popupComponent) {
-					let old = popupComponent;
-					popupComponent = null;
-					unmount(old, { outro: true });
+					await unmount(popupComponent, { outro: true });
 				}
 			});
 		}
-		// indy hall location
 		const iconSize: [number, number] = [19, 30];
 		const iconAnchor: [number, number] = [iconSize[0] / 2, iconSize[1]];
 		const popupAnchor: [number, number] = [0, iconSize[1] * -1];
@@ -40,26 +42,21 @@
 			iconAnchor: iconAnchor,
 			popupAnchor: popupAnchor
 		});
+
+		// indy hall location
 		var map = L.map('map').setView([39.962125, -75.140675], 15);
 		map.zoomControl.setPosition('bottomleft');
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		}).addTo(map);
-		const arts = await getAllArt();
+
 		for (const art of arts) {
 			let marker = L.marker([Number(art.location.latitude), Number(art.location.longitude)], {
 				icon: landmark
 			});
 
-			bindPopup(marker, (m: Element) => {
-				return mount(ArtPopup, {
-					target: m,
-					props: {
-						art
-					}
-				});
-			});
+			bindPopup(marker, art);
 
 			marker.addTo(map);
 		}

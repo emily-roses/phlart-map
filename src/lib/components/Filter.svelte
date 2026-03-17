@@ -31,9 +31,7 @@
 	{#each mainFilterTypes as mainFilter}
 		<input
 			id={mainFilter}
-			onclick={() => {
-				filteredSearch(mainFilter, this.checked);
-			}}
+			bind:checked={() => value, (v) => filteredSearch(mainFilter, v)}
 			type="checkbox"
 		/>
 		<label for={mainFilter}>{mainFilter}</label>
