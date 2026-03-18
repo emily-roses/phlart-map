@@ -1,13 +1,13 @@
 <script>
 	import AddressInput from '$lib/components/AddressInput.svelte';
-	import Filter from '$lib/components/Filter.svelte';
+	import FilterSet from '$lib/components/FilterSet.svelte';
 	import Map from '$lib/components/Map.svelte';
 </script>
 
 <div class="navbar">
 	<a href="christopher"><img alt="phlart logo" src="phlart.png" /></a>
 	<AddressInput />
-	<Filter />
+	<FilterSet />
 </div>
 
 <Map />
