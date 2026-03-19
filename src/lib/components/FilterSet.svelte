@@ -1,29 +1,24 @@
 <script lang="ts">
-	import { filter } from '../utils/filter.ts';
+	import { filterArt } from '../utils/filter.ts';
 	import Filter from './Filter.svelte';
 
 	let { value = $bindable() } = $props();
 
-	const mainFilterTypes = ['landmark', 'architecture', 'exhibits'];
-	const filterConfiguration: { [key: string]: boolean } = $state({
+	type filterTypes = 'landmark' | 'architecture' | 'exhibits';
+	const filterMap: Record<filterTypes, boolean> = $state({
 		landmark: false,
 		architecture: false,
 		exhibits: false
 	});
-	const fetchCheckedFilters = (filterConfiguration: { [key: string]: boolean }) => {
-		var filterArray: string[] = [];
-		Object.keys(filterConfiguration).forEach((filter) => {
-			if (filterConfiguration[filter]) {
-				filterArray.push(filter);
-			}
-		});
-		return filterArray;
-	};
-	const filteredSearch = (filterName: string, filterChecked: boolean) => {
-		filterConfiguration[filterName] = filterChecked;
-		const filterArray = fetchCheckedFilters(filterConfiguration);
-		if (filterArray.length !== 0) {
-			value = filter(filterArray, value);
+	const checkedFilters = $derived(
+		Object.entries(filterMap)
+			.filter(([_, val]) => val)
+			.map(([key]) => key as filterTypes)
+	);
+	const filteredSearch = (filterName: filterTypes, filterChecked: boolean) => {
+		filterMap[filterName] = filterChecked;
+		if (checkedFilters.length !== 0) {
+			value = filterArt(checkedFilters, value);
 		}
 	};
 </script>
@@ -31,7 +26,7 @@
 <div id="main-filter-wrapper">
 	<h4>Show</h4>
 	<div class="inputs">
-		{#each mainFilterTypes as filter}
+		{#each Object.keys(filterMap) as filter}
 			<Filter {filter} />
 		{/each}
 	</div>
