@@ -1,7 +1,5 @@
 <script lang="ts">
-	const { filter } = $props();
-
-	let isShowing = $state(true);
+	let { filter, isShowing = $bindable(true) } = $props();
 </script>
 
 <input defaultChecked id={filter} bind:checked={isShowing} type="checkbox" />

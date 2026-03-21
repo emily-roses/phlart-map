@@ -15,19 +15,19 @@
 			.filter(([_, val]) => val)
 			.map(([key]) => key as filterTypes)
 	);
-	const filteredSearch = (filterName: filterTypes, filterChecked: boolean) => {
-		filterMap[filterName] = filterChecked;
+	$effect(() => {
 		if (checkedFilters.length !== 0) {
 			value = filterArt(checkedFilters, value);
 		}
-	};
+	});
+	$inspect(filterMap);
 </script>
 
 <div id="main-filter-wrapper">
 	<h4>Show</h4>
 	<div class="inputs">
-		{#each Object.keys(filterMap) as filter}
-			<Filter {filter} />
+		{#each Object.entries(filterMap) as [filter, isShowing]}
+			<Filter {filter} {isShowing} />
 		{/each}
 	</div>
 </div>
